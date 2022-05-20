@@ -1,0 +1,20 @@
+metadata:
+    version: 1
+sources:
+    cmip6_etccdi:
+        description: |
+                Replica of the Climate extreme indices and heat stress indicators derived from CMIP6 global climate projections dataset (CICERO_ETCCDI) from the Copernicus Climate Datastore on gadi. This collection is a copy of CICERO_ETCCDI, which includes climate indices calculated on CMIP6 models historical and projections experiments. The collection includes ETCCDI (climate extrems indices) at yearly and monthly resolution, and HSI (Heat Stress Indicators) at daily resolution.
+                This dataset is part of the Australian Community Reference Climate Data Collection at NCI.
+                The files were downloaded from the CDS as netcdf files and compressed using nccopy.
+
+        Project: ia39
+        Maintained By: CLEX
+        Contact: cws_help@nci.org.au
+        Documentation: https://github.com/aus-ref-clim-data-nci
+        License: https://cds.climate.copernicus.eu/api/v2/terms/static/cicero-cmip6-indicators-licence.pdf
+        References:
+                -  https://cds.climate.copernicus.eu/cdsapp#!/dataset/sis-extreme-indices-cmip6?tab=overview
+                - Sandstad, M., Schwingshackl, C., Iles, C., & Sillmann, J. (2022). Climate extreme indices and heat stress indicators derived from CMIP6 global climate projections (1.0) [Data set]. Copernicus Climate Change Service (C3S) Climate Data Store (CDS). https://doi.org/10.24381/cds.776e08bd
+        driver: intake_esm.esm_datastore
+        args:
+            esmcol_obj: '{{CATALOG_DIR}}/cmip6_etccdi/catalogue.json'
