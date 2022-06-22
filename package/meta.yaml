@@ -1,6 +1,6 @@
 package:
     name: acs_intake
-    version: 1
+    version: 1.1
 
 source:
     path: .

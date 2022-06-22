@@ -16,5 +16,4 @@
 
 import intake
 
-#cat = intake.open_catalog('/g/data/hh5/public/apps/acs-intake/catalogue.yaml')
-cat = intake.open_catalog('/g/data/ua8/Working/packages/acs-intake/catalogue.yaml')
+cat = intake.open_catalog('/g/data/hh5/public/apps/acs-intake/catalogue.yaml')
