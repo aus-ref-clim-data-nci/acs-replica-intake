@@ -15,7 +15,7 @@ Individual datasets are catalogued using intake-esm
 
 ## Admin
 
-This catalogue exists on Gadi's NCI filesystem under /g/data/hh5/public/apps/acs-intake
+This catalogue exists on Gadi's NCI filesystem under /g/data/ia39/aus-ref-clim-data-nci/acs-intake/catalogue.yaml
 
 Use `git pull` to download changes from Github
 
@@ -60,6 +60,7 @@ cmip6_etccdi:
         args:
             esmcol_obj: '{{CATALOG_DIR}}/cmip6_etccdi/catalogue.json'
 ```
+NB. As shown quotes are not needed for the fields, but they should used when they contain `:`, urls are scanned correctly.
 
 The catalogue.csv.xz file is a compressed csv file that lists every file in the dataset and the corresponding values for each of attributes defined for the dataset.
 As an example a snippet of the catalogue for the cmip6_etccdi dataset:

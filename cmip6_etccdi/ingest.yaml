@@ -35,11 +35,8 @@ aggregation_control:
         - experiment
         - model
         - ensemble 
-        - variable
     aggregations:
-        # Join along the existing time dimension
-        - type: join_existing
-          attribute_name: date_range
-          options:
-              dim: time
+        # Join variables as `union`  
+        - type: union 
+          attribute_name: variable
 

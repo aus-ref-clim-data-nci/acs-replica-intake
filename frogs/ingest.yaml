@@ -9,8 +9,8 @@ description: |
     Maintained By: CLEX
     Contact: cws_help@nci.org.au
     Documentation: https://github.com/aus-ref-clim-data-nci/FROGs/blob/main/README.md
-    License: NA
-    Citation: Roca, R., Alexander, L. V., Potter, G., Bador, M., Jucá, R., Contractor, S., Bosilovich, M. G., and Cloché, S.: FROGs: a daily 1×1 gridded precipitation database of rain gauge, satellite and reanalysis products, https://doi.org/10.14768/06337394-73A9-407C-9997-0E380DAC5598, 2019, accesed on <date>
+    License: Permission is granted to use these data in research and publications mentionning the DOI (http://dx.doi.org/10.14768/06337394-73A9-407C-9997-0E380DAC5598) and the reference paper Roca et al, 2019 (ESSD data paper available at https://www.earth-syst-sci-data.net/11/1017/2019/) 
+    Citation: "Roca, R., Alexander, L. V., Potter, G., Bador, M., Jucá, R., Contractor, S., Bosilovich, M. G., and Cloché, S.: FROGs: a daily 1×1 gridded precipitation database of rain gauge, satellite and reanalysis products, https://doi.org/10.14768/06337394-73A9-407C-9997-0E380DAC5598, 2019, accesed on <date>"
     References:
         -  https://frogs.prod.lamp.cnrs.fr
 

@@ -76,3 +76,39 @@ sources:
         driver: intake_esm.esm_datastore
         args:
             esmcol_obj: '{{CATALOG_DIR}}/gpcp/catalogue.json'
+
+    frogs:
+        description: |
+            Replica of the Frequent Rainfall Observations on GridS (FROGS) database.
+            FROGs is a collection of daily precipitation products on a common 1×1 deg grid. The collection includes satellite, ground-based and reanalysis products.
+            The temporal range included starts from 1901 to 2019 depending on the data product.
+
+        Project: ia39
+        Maintained By: CLEX
+        Contact: cws_help@nci.org.au
+        Documentation: https://github.com/aus-ref-clim-data-nci/FROGs/blob/main/README.md
+        License: Permission is granted to use these data in research and publications mentionning the DOI (http://dx.doi.org/10.14768/06337394-73A9-407C-9997-0E380DAC5598) and the reference paper Roca et al, 2019 (ESSD data paper available at https://www.earth-syst-sci-data.net/11/1017/2019/) 
+        Citation: "Roca, R., Alexander, L. V., Potter, G., Bador, M., Jucá, R., Contractor, S., Bosilovich, M. G., and Cloché, S.: FROGs: a daily 1×1 gridded precipitation database of rain gauge, satellite and reanalysis products, https://doi.org/10.14768/06337394-73A9-407C-9997-0E380DAC5598, 2019, accesed on <date>"
+        References:
+            -  https://frogs.prod.lamp.cnrs.fr
+        driver: intake_esm.esm_datastore
+        args:
+            esmcol_obj: '{{CATALOG_DIR}}/gpcp/catalogue.json'
+
+    ghcn:
+        description: |
+            Replica of the daily station precipitation data from the Global Historical Climatology Network (GHCN).
+            GHCN-Daily is an integrated database of daily climate summaries from land surface stations across the globe.
+            It contains records from over 100,000 stations in 180 countries and territories. The period of record station files are parsed into yearly csv files that contain all available GHCN Daily station data for that year plus a time of observation field (where available).
+
+        Project: ia39
+        Maintained By: CLEX
+        Contact: cws_help@nci.org.au
+        Documentation: https://github.com/aus-ref-clim-data-nci/ghcn/blob/main/README.md
+        License: "Some of the data provided here are based on data exchanged under the World Meteorological Organization (WMO) World Weather Watch Program according to WMO Resolution 40 (Cg-XII). This allows WMO member countries to place restrictions on the use or re-export of their data for commercial purposes outside of the receiving country. Those country's data summaries and products which are available here are intended for free and unrestricted use in research, education, and other non-commercial activities. For non-U.S. locations, the data or any derived product shall not be provided to other users or be used for their re-export for commercial services."
+        Citation: "Menne MJ, Durre I, Korzeniewski B, McNeal S, Thomas K, Yin X, Anthony S, Ray R, Vose RS, Gleason BE, and Houston TG (2012). Global Historical Climatology Network - Daily (GHCN-Daily), Version 3. [indicate subset used following decimal, e.g. Version 3.12]. NOAA National Climatic Data Center. http://doi.org/10.7289/V5D21VHZ [access date]."
+        References:
+            -  https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily
+        driver: intake.source.csv.CSVSource
+        args:
+            urlpath: '/g/data/ia39/aus-ref-clim-data-nci/ghcn/data/daily/by_year/{year}.csv'

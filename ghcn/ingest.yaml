@@ -1,0 +1,48 @@
+# Metadata, as per intake_esm catalogue.json
+id: ghcn 
+title: Global Historical Climatology Network daily station data 
+description: |
+    Replica of the daily station precipitation data from the Global Historical Climatology Network (GHCN).
+    GHCN-Daily is an integrated database of daily climate summaries from land surface stations across the globe.
+    It contains records from over 100,000 stations in 180 countries and territories.
+    The period of record station files are parsed into yearly csv files that contain all available GHCN Daily station data for that year plus a time of observation field (where available).
+
+    Project: ia39 
+    Maintained By: CLEX
+    Contact: cws_help@nci.org.au
+    Documentation: https://github.com/aus-ref-clim-data-nci/ghcn/blob/main/README.md
+    License: "Some of the data provided here are based on data exchanged under the World Meteorological Organization (WMO) World Weather Watch Program according to WMO Resolution 40 (Cg-XII). This allows WMO member countries to place restrictions on the use or re-export of their data for commercial purposes outside of the receiving country. Those country's data summaries and products which are available here are intended for free and unrestricted use in research, education, and other non-commercial activities. For non-U.S. locations, the data or any derived product shall not be provided to other users or be used for their re-export for commercial services." 
+    Citation: "Menne MJ, Durre I, Korzeniewski B, McNeal S, Thomas K, Yin X, Anthony S, Ray R, Vose RS, Gleason BE, and Houston TG (2012). Global Historical Climatology Network - Daily (GHCN-Daily), Version 3. [indicate subset used following decimal, e.g. Version 3.12]. NOAA National Climatic Data Center. http://doi.org/10.7289/V5D21VHZ [access date]."
+    References:
+        -  https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily
+
+# Find paths and options to locate all of the files
+find:
+    paths:
+        - /g/data/ia39/aus-ref-clim-data-nci/ghcn/data
+    options: -not -type d -name *.csv
+
+# Python regular expression to decompose the DRS
+#   Name a section with (?P<NAME>...)
+#   Refer to a previous name with (?P=NAME) (e.g. if the variable is in both the path and filename)
+#   Uses the re.VERBOSE flag, comments allowed
+drs: |
+    ^(?P<path>
+    /g/data/ia39/aus-ref-clim-data-nci/ghcn/data/daily/by_year
+    /(?P<year>[^\.]+)                         # 1999
+    \.csv)$
+
+# Aggregation, as per intake_esm catalogue.json
+# Attributes will be automatically generated based on the DRS pattern,
+# excluding the asset column name
+assets:
+    column_name: path
+    format: csv 
+aggregation_control:
+    # Name of the variable in the file
+    variable_column_name: variable
+    # Grouping keys are made of these columns, joined by '.'
+    groupby_attrs:
+        - version
+        - frequency
+        - year 
