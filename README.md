@@ -1,7 +1,8 @@
-# Australian Reference Climate Data Collection Intake Catalogue
+# NCI Data Collection Intake Catalogue
 
 ## Usage
 
+The catalogue is available in intake's default catalogue list in the CLEX Conda
 environment
 
 ```python
@@ -14,7 +15,7 @@ Individual datasets are catalogued using intake-esm
 
 ## Admin
 
-This catalogue exists on Gadi's filesystem under /g/data/hh5/public/apps/acs-intake-catalogue
+This catalogue exists on Gadi's NCI filesystem under /g/data/hh5/public/apps/acs-intake
 
 Use `git pull` to download changes from Github
 
@@ -36,38 +37,42 @@ To add a new dataset you need:
 
 * add the main dataset metadata to the catalogue.yaml file
 * create a directory for the dataset
-* add here a catalogue.csv.xz file listing all files or a code to generate one on the fly
+* add here:
+    * a catalogue.csv.xz file listing all files, good option for stable or "smaller" collections
+    * or a ingest.yaml file to generate one on the fly
 
 The catalogue.yaml file lists the main metadata for each dataset:
 
 ```yaml
-    erai:
+cmip6_etccdi:
         description: |
-                Replica of ERA Interim reanalysis ... 
-
-        Project: ub4
+            Replica of the Climate extreme indices and heat stress indicators derived from CMIP6 ...
+        Project: ia39
         Maintained By: CLEX
         Contact: cws_help@nci.org.au
-        Documentation: http://climate-cms.wikis.unsw.edu.au/ERA_INTERIM
-        License: https://creativecommons.org/licenses/by/4.0/
+        Documentation: https://github.com/aus-ref-clim-data-nci/CMIP6_ETCCDI
+        License: https://cds.climate.copernicus.eu/api/v2/terms/static/cicero-cmip6-indicators-licence.pdf
+        Citation: Sandstad, M., Schwingshackl, C., Iles, ...
         References:
-                -  https://apps.ecmwf.int/datasets/data/interim-full-daily/licence/
+                -  https://cds.climate.copernicus.eu/cdsapp#!/dataset/sis-extreme-indices-cmip6?tab=overview
+                - ... 
         driver: intake_esm.esm_datastore
         args:
-            esmcol_obj: '{{CATALOG_DIR}}/erai/catalogue.json' 
+            esmcol_obj: '{{CATALOG_DIR}}/cmip6_etccdi/catalogue.json'
 ```
 
 The catalogue.csv.xz file is a compressed csv file that lists every file in the dataset and the corresponding values for each of attributes defined for the dataset.
-As an example a snippet of the catalogue for the erai dataset:
+As an example a snippet of the catalogue for the cmip6_etccdi dataset:
 
 ```csv
-path,frequency,realm,version,variable,mode,date_range,level,product,code,ecmwf_name,long_name,standard_name,cell_methods,parameter
-/g/data/ub4/erai/netcdf/3hr/atmos/oper_fc_sfc/v01/blh/blh_3hrs_ERAI_historical_fc-sfc_19790101_19790131.nc,3hr,atmos,v01,blh,fc-sfc,19790101_19790131,surface,forecast,159,BLH,Boundary layer height [m],,,159.128
+path,index_type,base,frequency,experiment,model,ensemble,variable,date_range
+/g/data/ia39/aus-ref-clim-data-nci/cmip6-etccdi/data/v1-0/etccdi/base_independent/yr/ssp370/ACCESS-CM2/txxETCCDI_yr_ACCESS-CM2_ssp370_r1i1p1f1_no-base_v20191108_2015-2100_v1-0.nc,etccdi,base_independent,yr,ssp370,ACCESS-CM2,r1i1p1f1,txx,2015-2100
+/g/data/ia39/aus-ref-clim-data-nci/cmip6-etccdi/data/v1-0/etccdi/base_independent/yr/ssp370/ACCESS-CM2/r10mmETCCDI_yr_ACCESS-CM2_ssp370_r1i1p1f1_no-base_v20191108_2015-2100_v1-0.nc,etccdi,base_independent,yr,ssp370,ACCESS-CM2,r1i1p1f1,r10mm,2015-2100
 ...
 ```
 
-As mentioned above, you can provide this list but especially if you're dealing with big datasets or datasets that are regularly updated it is easier to provide a code to generate this on the fly.
-all the code ingest.yaml, you can see examples in the existing dataset directories.
+As mentioned above, you can provide this list but especially if you're dealing with big datasets or datasets that are regularly updated it is easier to provide a ingest.yaml file to generate this on the fly.
+Examples of ingest.yaml are available in the existing dataset directories.
 
 The ingest.yaml is composed of 4 main sections:
 * The main dataset metadata, as added to the main catalogue.yaml
@@ -82,13 +87,18 @@ find:
 
 * `drs` section where you can use Python regular expression to retrieve attributes from the directory structure and filenames
 ```yaml
+#   /g/data/ia39/aus-ref-clim-data-nci/gpcp/data/mon/v2-3/2021/gpcp_v02r03_monthly_d202106_c20210907.nc
 drs: |
-    ^(?P<path>
-    /g/data/ub4/erai/netcdf
-    /(?P<frequency>[^/]+)             # /3hr
-    /(?P<realm>[^/]+)                 # /atmos
-    ...
+    ^(?P<path>/g/data/ia39/aus-ref-clim-data-nci/gpcp/data
+    /(?P<frequency>[^/]+)
+    /(?P<version>[^/]+)
+    /(?P<year>[^/]+)
+    /gpcp_(.*[^_]_){2}(?P<date>[^_]+)
+    _(.*[^\.]+)
+    .nc)
 ```
+ 
+We provided a simple code `test_drs.py` to test your DRS regex separately.
  
 * `assets` section, here the `path` is added as an attribute column, all the others are automatically generated based on the DRS pattern. This is also where the attributes used to groupby and aggregate the data are defined.
 
@@ -113,6 +123,6 @@ aggregation_control:
               dim: time
 ```
 
-Sometimes you need to do some further processing of the attributes you can derived from the DRS in that case you can do that by coding in a postprocess.py script. You add this script and any input files that you might need in the dataset directory, this will be automatically run after the ingest.yaml. There are examples both in the cmip5 and erai datasets. 
+Sometimes you need to do some further processing of the attributes you can derived from the DRS in that case you can do that by coding in a postprocess.py script. You add this script and any input files that you might need in the dataset directory, this will be automatically run after the ingest.yaml. There are examples both in the `gpcc` and `frogs` datasets. 
 
 More information is available in the official [intake-esm](https://intake-esm.readthedocs.io/en/latest/) documentation.

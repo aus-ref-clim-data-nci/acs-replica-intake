@@ -1,6 +1,7 @@
-#!/g/data/hh5/public/apps/nci_scripts/python-analysis3
+#!/usr/bin/env python
 # Copyright 2021 Scott Wales
 # author: Scott Wales <scott.wales@unimelb.edu.au>
+# modified by: Paola Petrelli <paola.petrelli@utas.edu.au>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +14,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# This code build a catalogue.json and catalogue.csv.xz file list for each dataset
+# Last modified:
+#     2022/06/21 
 
 import yaml
 import subprocess
@@ -24,9 +29,11 @@ import shlex
 import json
 import jsonschema
 
+# import dataset configuration from ingest.yaml
 with open("ingest.yaml") as f:
     config = yaml.safe_load(f)
 
+# define schema for catalogue.json file
 schema = {
     'type': 'object',
     'properties': {
@@ -64,19 +71,20 @@ schema = {
     'required': ['id','description','find','drs'],
 }
 # if catalogue.csv.xz already exists for dataset change find definition in schema
-print([k for k in config.keys()])
 if 'catalog_file' in [k for k in config.keys()]:
     print('Existing catalogue_file for dataset')
     # Get the column names from the catalogue file
     with lzma.open(config['catalog_file'], mode='rt') as f:
         header = f.readline()
     columns = header.replace("\n","").split(",")
-    print(columns)
 else:
     jsonschema.validate(config, schema)
 
+    # compile the regex for DRS path
     drs_re = re.compile(config["drs"], re.VERBOSE)
+    #print(f'drs_re: {drs_re}')
 
+    # define find command to list all files based on options listed in dataset configuration
     find_command = [
         "/bin/find",
         *config["find"]["paths"],
@@ -84,6 +92,7 @@ else:
         ]
     print(shlex.join(find_command))
 
+    # open catalogue.csv.xz file
     with tempfile.TemporaryFile('w+') as f, tempfile.TemporaryFile('w+') as s, lzma.open(
         "catalogue.csv.xz", mode="wt", newline=""
     ) as out, lzma.open('errors.xz', mode='wt') as e:
@@ -121,7 +130,7 @@ else:
                 e.write(path)
                 continue
             record = match.groupdict()
-
+            # rename columns if defined in config
             for col, renames in config.get('rename', {}).items():
                 if record.get(col, None) in renames:
                     record[col] = renames[record[col]]
@@ -139,6 +148,8 @@ config['esmcat_version'] = '0.1.0'
 config['catalog_file'] = 'catalogue.csv.xz'
 config['attributes'] = [{'column_name': c} for c in columns if c != config['assets']['column_name']]
 
+# write catalogue.json file
 with open('catalogue.json', 'w') as f:
     print("cat.json open")
     json.dump(config,f,indent=2)
+print("")

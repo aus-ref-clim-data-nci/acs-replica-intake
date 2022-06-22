@@ -1,0 +1,31 @@
+# Metadata, as per intake_esm catalogue.json
+id: cmap
+title: Climate extreme indices and heat stress indicators derived from CMIP6 global climate projections dataset
+description: |
+        Replica of the CMAP precipitation including monthly and pentad global gridded precipitation means. It has a standard version (std) and one enhanced (enh) with NCEP Reanalysis. CMAP covers from 1979 to near the present on a global grid at 2.5 degree latitude x 2.5 degree longitude resolution.
+            The original data is ascii, this is a netcdf version from the Physical Sciences Laboratory (PSL).
+        Project: ia39
+        Maintained By: CLEX
+        Contact: cws_help@nci.org.au
+        Documentation: https://github.com/aus-ref-clim-data-nci/CMAP/blob/main/README.md
+        License: NA
+
+
+        Citation: 
+            - Xie, P., and P.A. Arkin, 1997. 'Global precipitation: A 17-year monthly analysis based on gauge observations, satellite estimates, and numerical model outputs. Bull. Amer. Meteor. Soc., 78, 2539 - 2558.'
+            - Include text such as CMAP Precipitation data provided by the NOAA/OAR/ESRL PSL, Boulder, Colorado, USA, from their Web site at https://psl.noaa.gov/ in any documents or publications using these data. PSL would also appreciate receiving a copy of the relevant publications. This will help PSL to justify keeping the CMAP Precipitation data set freely available online in the future.
+        References:
+            - https://www.cpc.ncep.noaa.gov/products/global_precip/html/wpage.cmap.html
+            - https://psl.noaa.gov/data/gridded/data.cmap.html
+
+catalog_file: catalogue.csv.xz 
+
+# Aggregation, as per intake_esm catalogue.json
+# Attributes will be automatically generated based on the DRS pattern, 
+# excluding the asset column name
+assets:
+    column_name: path
+    format: netcdf
+aggregation_control:
+    # Name of the variable in the file
+    variable_column_name: variable

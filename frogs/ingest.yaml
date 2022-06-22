@@ -1,0 +1,59 @@
+# Metadata, as per intake_esm catalogue.json
+id: frogs 
+title: Frequent Rainfall Observations on GridS (FROGS) database 
+description: |
+    Replica of the Frequent Rainfall Observations on GridS (FROGS) database.
+    FROGs is a collection of daily precipitation products on a common 1×1 deg grid. The collection includes satellite, ground-based and reanalysis products.
+    The temporal range included starts from 1901 to 2019 depending on the data product.
+    Project: ia39 
+    Maintained By: CLEX
+    Contact: cws_help@nci.org.au
+    Documentation: https://github.com/aus-ref-clim-data-nci/FROGs/blob/main/README.md
+    License: NA
+    Citation: Roca, R., Alexander, L. V., Potter, G., Bador, M., Jucá, R., Contractor, S., Bosilovich, M. G., and Cloché, S.: FROGs: a daily 1×1 gridded precipitation database of rain gauge, satellite and reanalysis products, https://doi.org/10.14768/06337394-73A9-407C-9997-0E380DAC5598, 2019, accesed on <date>
+    References:
+        -  https://frogs.prod.lamp.cnrs.fr
+
+# Find paths and options to locate all of the files
+find:
+    paths:
+        - /g/data/ia39/aus-ref-clim-data-nci/frogs/data/1DD_V1/ 
+    options: -not -type d -name *.nc
+
+# Python regular expression to decompose the DRS
+#   Name a section with (?P<NAME>...)
+#   Refer to a previous name with (?P=NAME) (e.g. if the variable is in both the path and filename)
+#   Uses the re.VERBOSE flag, comments allowed
+#   NB: the last bit of the regex should work as
+#   /(?P<date>(?!.*\b.nc\b).+)
+#   however when run on its own on the test_drs code it worked 
+#   and "\b" where converted to "\x08", while it failed with ingest.py
+#   where "\b" remained the same
+drs: |
+    ^(?P<path>
+    /g/data/ia39/aus-ref-clim-data-nci/frogs/data
+    /(?P<version>[^/]+)
+    /(?P<dset>[^/]+)                
+    /(?P<else>(?!.*\x08\\.nc\x08).+)
+    .nc)
+    
+
+# Aggregation, as per intake_esm catalogue.json
+# Attributes will be automatically generated based on the DRS pattern,
+# excluding the asset column name
+assets:
+    column_name: path
+    format: netcdf
+aggregation_control:
+    # Name of the variable in the file
+    variable_column_name: variable
+    # Grouping keys are made of these columns, joined by '.'
+    groupby_attrs:
+        - version
+        - dset 
+    aggregations:
+        # Join along the existing time dimension
+        - type: join_existing
+          attribute_name: date_range
+          options:
+              dim: time

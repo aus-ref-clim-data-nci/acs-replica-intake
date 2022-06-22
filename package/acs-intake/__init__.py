@@ -1,6 +1,6 @@
-#!/g/data/hh5/public/apps/nci_scripts/python-analysis3
-# Copyright 2021 Scott Wales
-# author: Scott Wales <scott.wales@unimelb.edu.au>
+#!/usr/bin/env python
+# Copyright 2022 Paola Petrelli
+# author: Paola Petrelli <paola.petrelli@utas.edu.au>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,5 +16,5 @@
 
 import intake
 
-#cat = intake.open_catalog('/g/data/hh5/public/apps/nci-intake-catalogue/catalogue.yaml')
-cat = intake.open_catalog('/g/data/ua8/Working/packages/acs-intake-catalogue/catalogue.yaml')
+#cat = intake.open_catalog('/g/data/hh5/public/apps/acs-intake/catalogue.yaml')
+cat = intake.open_catalog('/g/data/ua8/Working/packages/acs-intake/catalogue.yaml')

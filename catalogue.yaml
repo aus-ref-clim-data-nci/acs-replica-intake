@@ -3,18 +3,76 @@ metadata:
 sources:
     cmip6_etccdi:
         description: |
-                Replica of the Climate extreme indices and heat stress indicators derived from CMIP6 global climate projections dataset (CICERO_ETCCDI) from the Copernicus Climate Datastore on gadi. This collection is a copy of CICERO_ETCCDI, which includes climate indices calculated on CMIP6 models historical and projections experiments. The collection includes ETCCDI (climate extrems indices) at yearly and monthly resolution, and HSI (Heat Stress Indicators) at daily resolution.
-                This dataset is part of the Australian Community Reference Climate Data Collection at NCI.
-                The files were downloaded from the CDS as netcdf files and compressed using nccopy.
+            Replica of the Climate extreme indices and heat stress indicators derived from CMIP6 global climate projections dataset (CICERO_ETCCDI) from the Copernicus Climate Datastore on gadi. This collection is a copy of CICERO_ETCCDI, which includes climate indices calculated on CMIP6 models historical and projections experiments. The collection includes ETCCDI (climate extrems indices) at yearly and monthly resolution, and HSI (Heat Stress Indicators) at daily resolution.
+            This dataset is part of the Australian Community Reference Climate Data Collection at NCI.
+            The files were downloaded from the CDS as netcdf files and compressed using nccopy.
 
         Project: ia39
         Maintained By: CLEX
         Contact: cws_help@nci.org.au
-        Documentation: https://github.com/aus-ref-clim-data-nci
+        Documentation: https://github.com/aus-ref-clim-data-nci/CMIP6_ETCCDI
         License: https://cds.climate.copernicus.eu/api/v2/terms/static/cicero-cmip6-indicators-licence.pdf
+        Citation: Sandstad, M., Schwingshackl, C., Iles, C.E., Sillmann, J., (2022). Climate extreme indices and heat stress indicators derived from CMIP6 global climate projections, [specify product used], v1, Copernicus Climate Change Service (C3S) Climate Data Store (CDS). (Accessed on [DD-MMM-YYYY]), https://doi.org/10.24381/cds.776e08bd 
         References:
                 -  https://cds.climate.copernicus.eu/cdsapp#!/dataset/sis-extreme-indices-cmip6?tab=overview
                 - Sandstad, M., Schwingshackl, C., Iles, C., & Sillmann, J. (2022). Climate extreme indices and heat stress indicators derived from CMIP6 global climate projections (1.0) [Data set]. Copernicus Climate Change Service (C3S) Climate Data Store (CDS). https://doi.org/10.24381/cds.776e08bd
         driver: intake_esm.esm_datastore
         args:
             esmcol_obj: '{{CATALOG_DIR}}/cmip6_etccdi/catalogue.json'
+
+    gpcc:
+        description: |
+            Replica of the full reanalysis of GPCC gridded gauge-analysis products derived from quality controlled station data. The latest version is V2022 monthly and daily covering from 1891 to 2020. The data is available on 4 global grids (0.25, 0.5, 1.0 and 2.5 degrees) for monthly and only at 1.0  degrees resolution for daily. |
+            The data is not bias-corrected for gauges errors, but estimates on these are also provided.
+
+        Project: ia39
+        Maintained By: CLEX
+        Contact: cws_help@nci.org.au
+        Documentation: https://github.com/aus-ref-clim-data-nci/GPCC/blob/main/README.md
+        License: NA
+        Citation: 
+        References:
+            -  https://www.dwd.de/EN/ourservices/gpcc/gpcc.html
+        driver: intake_esm.esm_datastore
+        args:
+            esmcol_obj: '{{CATALOG_DIR}}/gpcc/catalogue.json'
+
+    gpcp:
+        description: |
+            Replica of the GPCP One-Degree monthly and daily precipiation datasets.
+            GPCP daily v1.3 provides globally complete precipitation estimates at a spatial resolution of one degree latitude-longitude and daily time scale from October 1996 to the present.
+            GPCP monthly v2.3 satellite-gauge and associated precipitation error estimates and covers the period January 1979 to the present.
+
+        Project: ia39
+        Maintained By: CLEX
+        Contact: cws_help@nci.org.au
+        Documentation: https://github.com/aus-ref-clim-data-nci/GPCC/blob/main/README.md
+        License: NA
+        Citation:
+            - daily v1.3 - Adler, Robert; Wang, Jian-Jian; Sapiano, Mathew; Huffman, George; Bolvin, David; Nelkin, Eric; and NOAA CDR Program (2017). Global Precipitation Climatology Project (GPCP) Climate Data Record (CDR), Version 1.3 (Daily) [Indicate subset used.]. NOAA National Centers for Environmental Information. doi:10.7289/V5RX998Z [access date]
+            - monthly v2.3 - Adler, Robert; Wang, Jian-Jian; Sapiano, Matthew; Huffman, George; Chiu, Long; Xie, Ping Ping; Ferraro, Ralph; Schneider, Udo; Becker, Andreas; Bolvin, David; Nelkin, Eric; Gu, Guojun; and NOAA CDR Program (2016). Global Precipitation Climatology Project (GPCP) Climate Data Record (CDR), Version 2.3 (Monthly). National Centers for Environmental Information. doi:10.7289/V56971M6 [access date]
+        References:
+            - https://www.ncei.noaa.gov/data/global-precipitation-climatology-project-gpcp-daily
+            - https://www.ncei.noaa.gov/data/global-precipitation-climatology-project-gpcp-monthly
+        driver: intake_esm.esm_datastore
+        args:
+            esmcol_obj: '{{CATALOG_DIR}}/gpcp/catalogue.json'
+
+    cmap:
+        description: |
+            Replica of the CMAP precipitation including monthly and pentad global gridded precipitation means. It has a standard version (std) and one enhanced (enh) with NCEP Reanalysis. CMAP covers from 1979 to near the present on a global grid at 2.5 degree latitude x 2.5 degree longitude resolution.
+            The original data is ascii, this is a netcdf version from the Physical Sciences Laboratory (PSL).
+        Project: ia39
+        Maintained By: CLEX
+        Contact: cws_help@nci.org.au
+        Documentation: https://github.com/aus-ref-clim-data-nci/CMAP/blob/main/README.md
+        License: NA
+        Citation:
+            - Xie, P., and P.A. Arkin, 1997. 'Global precipitation: A 17-year monthly analysis based on gauge observations, satellite estimates, and numerical model outputs. Bull. Amer. Meteor. Soc., 78, 2539 - 2558.'
+            - Include text such as CMAP Precipitation data provided by the NOAA/OAR/ESRL PSL, Boulder, Colorado, USA, from their Web site at https://psl.noaa.gov/ in any documents or publications using these data. PSL would also appreciate receiving a copy of the relevant publications. This will help PSL to justify keeping the CMAP Precipitation data set freely available online in the future.
+        References: 
+            - https://www.cpc.ncep.noaa.gov/products/global_precip/html/wpage.cmap.html
+            - https://psl.noaa.gov/data/gridded/data.cmap.html
+        driver: intake_esm.esm_datastore
+        args:
+            esmcol_obj: '{{CATALOG_DIR}}/gpcp/catalogue.json'

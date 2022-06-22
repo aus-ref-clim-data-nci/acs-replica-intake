@@ -1,24 +1,23 @@
 # Metadata, as per intake_esm catalogue.json
-id: erai
-title: ERA Interim (subdaily)
+id: gpcc 
+title: Global Precipitation Climatology Centre monthly and daily gridded precipitation
 description: |
-    Replica of ERA Interim reanalysis from ECMWF on gadi. This collection is a subset of ERA Interim, including only subdaily (3hr/6hr) frequencies, for monthly data see the eraimon collection. The collection is complete as ERA Interim production stopped to Aug 2019.
+    Replica of the full reanalysis of GPCC gridded gauge-analysis products derived from quality controlled station data. The latest version is V2022 monthly and daily covering from 1891 to 2020. The data is available on 4 global grids (0.25, 0.5, 1.0 and 2.5 degrees) for monthly and only at 1.0  degrees resolution for daily. |
+    The data is not bias-corrected for gauges errors, but estimates on these are also provided.
 
-    The files were downloaded from ECMWF in grib format and converted to netcdf using where possible the cmor variable name conventions for variable names. The DRS is also a loose adaptation of the CMIP5 DRS.
-
-    Project: ub4
+    Project: ia39 
     Maintained By: CLEX
     Contact: cws_help@nci.org.au
-    Documentation: http://climate-cms.wikis.unsw.edu.au/ERA_INTERIM
-    License: https://creativecommons.org/licenses/by/4.0/
+    Documentation: https://github.com/aus-ref-clim-data-nci/GPCC/blob/main/README.md
+    License: NA
     References:
-        -  https://apps.ecmwf.int/datasets/data/interim-full-daily/licence/
+        -  https://www.dwd.de/EN/ourservices/gpcc/gpcc.html
 
 # Find paths and options to locate all of the files
 find:
     paths:
         - /g/data/ia39/aus-ref-clim-data-nci/gpcc/data 
-    options: -not -type d -not -name *.nc
+    options: -not -type d -name *.nc
 
 # Python regular expression to decompose the DRS
 #   Name a section with (?P<NAME>...)
@@ -27,13 +26,12 @@ find:
 drs: |
     ^(?P<path>
     /g/data/ia39/aus-ref-clim-data-nci/gpcc/data/full_data_
-    (?P<frequency>[^/_])        # daily_
-    (?P<version>[^/]+)               # v2020
-    /(?P<grid>[^/]+)                 # /10
-    /(.*[^_]+)                         # /full_data_daily_10_
-    _(?P<year>[^/]+)            # _2019
-    .nc
-     )
+    (?P<frequency>[^_]+)                         # daily_
+    _(?P<version>[^/]+)                          # v2020
+    /(?P<grid>[^/]+)                             # /10
+    /full_data_(?P=frequency)_(?P=version)       # /full_data_daily_v2020
+    _(?P<date_range>[^/]+)                       # _2019.... depends on frequency
+    \.nc)$
 
 # Aggregation, as per intake_esm catalogue.json
 # Attributes will be automatically generated based on the DRS pattern,
@@ -48,8 +46,7 @@ aggregation_control:
     groupby_attrs:
         - version
         - frequency
-        - variable
-        - version
+        - grid 
     aggregations:
         # Join along the existing time dimension
         - type: join_existing
