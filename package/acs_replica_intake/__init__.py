@@ -16,4 +16,4 @@
 
 import intake
 
-cat = intake.open_catalog('/g/data/ia39/aus-ref-clim-data-nci/acs-intake/catalogue.yaml')
+cat = intake.open_catalog('/g/data/ia39/aus-ref-clim-data-nci/acs-replica-intake/catalogue.yaml')

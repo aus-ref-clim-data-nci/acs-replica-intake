@@ -8,14 +8,14 @@ environment
 ```python
 import intake
 
-print(list(intake.cat.acs))
+print(list(intake.cat.acs-replica))
 ```
 
 Individual datasets are catalogued using intake-esm
 
 ## Admin
 
-This catalogue exists on Gadi's NCI filesystem under /g/data/ia39/aus-ref-clim-data-nci/acs-intake/catalogue.yaml
+This catalogue exists on Gadi's NCI filesystem under /g/data/ia39/aus-ref-clim-data-nci/acs-replica-intake/catalogue.yaml
 
 Use `git pull` to download changes from Github
 
