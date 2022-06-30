@@ -1,0 +1,58 @@
+# Metadata, as per intake_esm catalogue.json
+id: cmorph
+title: NOAA CPC MORPHing technique Climate Data Record v1.0 
+description: |
+    This data set is for the bias-corrected, reprocessed CPC Morphing technique (CMORPH) high-resolution global satellite precipitation estimates. 
+    The bias corrected CMORPH satellite precipitation estimates are created on an 8 km by 8 km grid over the global domain from 60 degrees S to 60 degrees N and in a 30-minute interval from January 1998 to present. Due to the delay of some input data sets, this formal version (Version 1) bias corrected CMORPH is produced manually once a month at a latency of 3-4 months.
+    Project: ia39
+    Maintained By: CLEX
+    Contact: cws_help@nci.org.au
+    Documentation: https://github.com/aus-ref-clim-data-nci/cmorph/blob/main/README.md
+    License: "Use liability: NOAA and NCEI cannot provide any warranty as to the accuracy, reliability, or completeness of furnished data. Users assume responsibility to determine the usability of these data. The user is responsible for the results of any application of this data for other than its intended purpose."
+    Citation: "Xie, Pingping; Joyce, Robert; Wu, Shaorong; Yoo, S.-H.; Yarosh, Yelena; Sun, Fengying; Lin, Roger, NOAA CDR Program (2019): NOAA Climate Data Record (CDR) of CPC Morphing Technique (CMORPH) High Resolution Global Precipitation Estimates, Version 1 Full resolution data. NOAA National Centers for Environmental Information. https://doi.org/10.25921/w9va-q159 [access date]"
+    References:
+        - https://www.ncei.noaa.gov/products/climate-data-records/precipitation-cmorph
+        - https://rda.ucar.edu/data/ds502.2/
+        - https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00948
+
+# Find paths and options to locate all of the files
+find:
+    paths:
+        - /g/data/ia39/aus-ref-clim-data-nci/cmorph/data
+    options: -not -type d -name *.nc
+
+# Python regular expression to decompose the DRS
+#   Name a section with (?P<NAME>...)
+#   Refer to a previous name with (?P=NAME) (e.g. if the variable is in both the path and filename)
+#   Uses the re.VERBOSE flag, comments allowed
+drs: |
+    ^(?P<path>
+    /g/data/ia39/aus-ref-clim-data-nci/cmorph/data
+    /v(?P<version>[^/]+)                          # /v1.0
+    /(?P<frequency>[^/]+)                         # /30min
+    /(?P<grid>[^/]+)                             # /8km
+    /(?P<year>[^/]+)                             # /2020
+    /(?P<month>[^/]+)                            # /02
+    /CMORPH_V(?P=version)_ADJ_(?P=grid)           # /CMORPH_V1.0_ADJ_8km
+    -(?P=frequency)_(?P<date>[^\0\0]+)             # -30min_20200201
+    00.nc)$
+
+    # Aggregation, as per intake_esm catalogue.json
+# Attributes will be automatically generated based on the DRS pattern,
+# excluding the asset column name
+assets:
+    column_name: path
+    format: netcdf
+aggregation_control:
+    # Name of the variable in the file
+    variable_column_name: variable
+    # Grouping keys are made of these columns, joined by '.'
+    groupby_attrs:
+        - frequency
+        - grid 
+    aggregations:
+        # Join along the existing time dimension
+        - type: join_existing
+          attribute_name: date
+          options:
+              dim: time

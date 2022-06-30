@@ -6,6 +6,7 @@ description: |
     GHCN-Daily is an integrated database of daily climate summaries from land surface stations across the globe.
     It contains records from over 100,000 stations in 180 countries and territories.
     The period of record station files are parsed into yearly csv files that contain all available GHCN Daily station data for that year plus a time of observation field (where available).
+    !!! NB. This is a work in progress! Currently the intake-csv driver is not handling correctly these files.
 
     Project: ia39 
     Maintained By: CLEX

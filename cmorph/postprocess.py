@@ -19,10 +19,8 @@ import pandas
 # Read current csv and fixed variables catalogue
 df = pandas.read_csv("catalogue.csv.xz")
 
-# remove 'd' from start of date
-df['date'] = df['date'].map(lambda x: x[1:])
 # add variable column
-df['variable'] = 'precip'
+df['variable'] = 'cmorph'
 
 # Save updated catalogue.csv.xz
 df.to_csv('catalogue.csv.xz', index=False)

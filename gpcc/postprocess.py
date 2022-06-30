@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Copyright 2022 Paola Petrelli 
 # author: Paola Petrelli <paola.petrelli@utas.edu.au>
 #

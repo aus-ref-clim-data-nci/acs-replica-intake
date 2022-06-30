@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Copyright 2021 Scott Wales
 # author: Scott Wales <scott.wales@unimelb.edu.au>
 # modified by: Paola Petrelli <paola.petrelli@utas.edu.au>
