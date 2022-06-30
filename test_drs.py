@@ -24,10 +24,6 @@ s=['/g/data/ia39/aus-ref-clim-data-nci/frogs/data/1DD_V1/TAPEER_v1.5/TAPEER-BRAI
 '/g/data/ia39/aus-ref-clim-data-nci/frogs/data/1DD_V1/3B42_IR_v7.0/3B42v7_IR.1DD.2009.nc\n'
         ]
 
-s=['/g/data/ia39/aus-ref-clim-data-nci/cmorph/data/v1.0/30min/8km/2003/12/CMORPH_V1.0_ADJ_8km-30min_2003120300.nc\n',
-'/g/data/ia39/aus-ref-clim-data-nci/frogs/data/v1.0/30min/8km/2021/01/CMORPH_V1.0_ADJ_8km-30min_2021010400.nc\n',
-'/g/data/ia39/aus-ref-clim-data-nci/cmorph/data/v1.0/30min/8km/1999/02/CMORPH_V1.0_ADJ_8km-30min_1999020200.nc\n',
-        ]
 # insert here your DRS path trials
 drs_re= re.compile('''^(?P<path>
     /g/data/ia39/aus-ref-clim-data-nci/frogs/data
@@ -35,17 +31,6 @@ drs_re= re.compile('''^(?P<path>
     /(?P<dset>[^/]+)
     /(?P<variable>(?!.*\b.nc\b).+)
     .nc)''', re.VERBOSE)
-drs_re = re.compile(''' ^(?P<path>
-    /g/data/ia39/aus-ref-clim-data-nci/cmorph/data
-    /v(?P<version>[^/]+)                          # /v1.0
-    /(?P<frequency>[^/]+)                         # /30min
-    /(?P<grid>[^/]+)                             # /8km
-    /(?P<year>[^/]+)                             # /2020
-    /(?P<month>[^/]+)                            # /02
-    /CMORPH_V(?P=version)_ADJ_(?P=grid)           # /CMORPH_V1.0_ADJ_8km
-    -(?P=frequency)_(?P<date>[^\0\0]+)             # -30min_20200201
-    00.nc)''', re.VERBOSE)
-
 
 
 print(drs_re)
