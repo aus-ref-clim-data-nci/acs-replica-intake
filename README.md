@@ -2,16 +2,28 @@
 
 ## Usage
 
-The catalogue is available in intake's default catalogue list in the CLEX Conda
-environment
+To access the catalogue and the data you need to be part of the [`ia39` project](https://my.nci.org.au/mancini/project/ia39).
+
+To load the catalogue
 
 ```python
 import intake
+cat = intake.open_catalog('/g/data/ia39/aus-ref-clim-data-nci/acs-replica-intake/catalogue.yaml') 
+```
+If you are using the CLEX-CMS conda environments, you can use this shortcut
+```python
+import intake
 
-print(list(intake.cat.acs-replica))
+cat = intake.cat.acs-replica
+```
+To load these conda environments you need to be part of the [`hh5` project](https://my.nci.org.au/mancini/project/hh5).
+
+```
+module use /g/data/hh5/public/modules
+module load conda/analysis3
 ```
 
-Individual datasets are catalogued using intake-esm
+Individual netcdf datasets are catalogued using intake-esm.
 
 ## Admin
 
@@ -19,12 +31,12 @@ This catalogue exists on Gadi's NCI filesystem under /g/data/ia39/aus-ref-clim-d
 
 Use `git pull` to download changes from Github
 
-Catalogue csv listings themselves need to be generated, they are not in the
-repository due to their size. This may be done by running `make` within the
-directory
+Most of the catalogue csv listings themselves need to be generated, as most datasets are regularly updated.
+This may be done by running `make` within the directory
 
 The intake data package is under the directory `package/`, it simply provides
-an intake entry point pointing to the catalogue directory
+an intake entry point pointing to the catalogue directory.
+As long as this doesn't change there is no need to re-install the catalogue, even if the csv listings get updated and/or new datasets are added.
 
 
 ## Contributing
@@ -82,7 +94,7 @@ The ingest.yaml is composed of 4 main sections:
 ```yaml
 find:
     paths:
-        - /g/data/ub4/erai/netcdf/
+        - /g/data/ia39/aus-ref-clim-data-nci/gpcp/data
     options: -not -type d -not -path */fx/* -name *.nc
 ```
 
