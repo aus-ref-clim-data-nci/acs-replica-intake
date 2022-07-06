@@ -14,7 +14,7 @@ If you are using the CLEX-CMS conda environments, you can use this shortcut
 ```python
 import intake
 
-cat = intake.cat.acs-replica
+cat = intake.cat.acsreplica
 ```
 To load these conda environments you need to be part of the [`hh5` project](https://my.nci.org.au/mancini/project/hh5).
 
