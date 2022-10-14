@@ -29,10 +29,3 @@ for s in $(find . -name ingest.yaml); do
 
     popd
 done
-
-# Old style generators
-#for d in era5 era5-land; do
-#    pushd $d
-#    ./generate.sh
-#    popd
-#done

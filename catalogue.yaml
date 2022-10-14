@@ -119,6 +119,7 @@ sources:
         description: |
             This data set is for the bias-corrected, reprocessed CPC Morphing technique (CMORPH) high-resolution global satellite precipitation estimates. 
             The bias corrected CMORPH satellite precipitation estimates are created on an 8 km by 8 km grid over the global domain from 60 degrees S to 60 degrees N and in a 30-minute interval from January 1998 to present. Due to the delay of some input data sets, this formal version (Version 1) bias corrected CMORPH is produced manually once a month at a latency of 3-4 months.
+
         Project: ia39
         Maintained By: CLEX
         Contact: cws_help@nci.org.au
@@ -132,4 +133,25 @@ sources:
         driver: intake_esm.esm_datastore
         args:
             esmcol_obj: '{{CATALOG_DIR}}/cmorph/catalogue.json'
+
+    gpm: 
+        description: |
+            Replica of the Integrated Multi-satellitE Retrievals for GPM (IMERG) global precipitation estimate. IMERG is the continuation of TRMM. The latest version is the minor version 06B which combines the precipitation estimates collected by the TRMM satellite (2000 - 2015) with the estimates from the GPM satellite (2014 - present).
+            The monthly Global Precipitation Climatology Project (GPCP) Satellite-Gauge (SG) product over high-latitude ocean and tropical land is used to correct known biases.
+            The dataset has a spatial resolution of 0.1°x0.1° (roughly 10x10 km) over the globe and a temporal resolution of 30 minutes. The temporal coverage starts on 2000-06-01 to  present with about 3 months of delay. The netcdf version we provide here is updated irregularly, so the delay is effectively up to a year.
+            NB These files have a Julian calendar, use to_dataset_dict(cdf_kwargs={'decode_times':False}) to avoid errors opening the files. Also be aware that the size of this dataset is quite big, if trying to get a a timeseries on a point or region use the preprocessing argument as shown in the demo. 
+
+        Project: ia39
+        Maintained By: CLEX
+        Contact: cws_help@nci.org.au
+        Documentation: https://github.com/aus-ref-clim-data-nci/GPM/blob/main/README.md
+        License: https://science.nasa.gov/earth-science/earth-science-data/data-information-policy/ 
+        Citation: "Huffman, G.J., E.F. Stocker, D.T. Bolvin, E.J. Nelkin, Jackson Tan (2019), GPM IMERG Final Precipitation L3 Half Hourly 0.1 degree x 0.1 degree V06, Greenbelt, MD, Goddard Earth Sciences Data and Information Services Center (GES DISC), Accessed: [Data Access Date], 10.5067/GPM/IMERG/3B-HH/06"
+        References:
+            - ftp://gpmweb2.pps.eosdis.nasa.gov/pub/GPMfilespec/filespec.GPM.pdf
+            - "Jin, Daeho, Oreopoulos, Lazaros, Lee, Dongmin, Tan, Jackson, Cho, Nayeong. 2021.  Cloud-Precipitation Hybrid Regimes and their Projection onto IMERG Precipitation Data. Vol. -1, No. aop, DOI: 10.1175/JAMC-D-20-0253.1  ISSN: 1558-8424, 1558-8432"
+        driver: intake_esm.esm_datastore
+        args:
+            esmcol_obj: '{{CATALOG_DIR}}/gpm/catalogue.json'
+
 

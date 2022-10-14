@@ -34,7 +34,7 @@ drs: |
     /g/data/ia39/aus-ref-clim-data-nci/frogs/data
     /(?P<version>[^/]+)
     /(?P<dset>[^/]+)                
-    /(?P<else>(?!.*\x08\\.nc\x08).+)
+    /(?P<other>(?!.*\x08\\.nc\x08).+)
     .nc)
     
 
