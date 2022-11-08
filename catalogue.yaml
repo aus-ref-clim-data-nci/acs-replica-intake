@@ -154,4 +154,23 @@ sources:
         args:
             esmcol_obj: '{{CATALOG_DIR}}/gpm/catalogue.json'
 
+    oisst: 
+        description: |
+            Replica of the Integrated Multi-satellitE Retrievals for GPM (IMERG) global precipitation estimate. IMERG is the continuation of TRMM. The latest version is the minor version 06B which combines the precipitation estimates collected by the TRMM satellite (2000 - 2015) with the estimates from the GPM satellite (2014 - present).
+            The monthly Global Precipitation Climatology Project (GPCP) Satellite-Gauge (SG) product over high-latitude ocean and tropical land is used to correct known biases.
+            The dataset has a spatial resolution of 0.1°x0.1° (roughly 10x10 km) over the globe and a temporal resolution of 30 minutes. The temporal coverage starts on 2000-06-01 to  present with about 3 months of delay. The netcdf version we provide here is updated irregularly, so the delay is effectively up to a year.
+            NB These files have a Julian calendar, use to_dataset_dict(cdf_kwargs={'decode_times':False}) to avoid errors opening the files. Also be aware that the size of this dataset is quite big, if trying to get a a timeseries on a point or region use the preprocessing argument as shown in the demo. 
+
+        Project: ia39
+        Maintained By: CLEX
+        Contact: cws_help@nci.org.au
+        Documentation: https://github.com/aus-ref-clim-data-nci/OISST/blob/main/README.md
+        License: https://science.nasa.gov/earth-science/earth-science-data/data-information-policy/ 
+        Citation: "Banzon, V., Smith, T. M., Chin, T. M., Liu, C., and Hankins, W., 2016: A long-term record of blended satellite and in situ sea-surface temperature for climate monitoring, modeling and environmental studies. Earth Syst. Sci. Data, 8, 165-176, doi:10.5194/essd-8-165-2016. Reynolds, R. W., T. M. Smith, C. Liu, D. B. Chelton, K. S. Casey, and M. G. Schlax, 2007: Daily high-resolution-blended analyses for sea surface temperature. Journal of Climate, 20, 5473-5496, doi:10.1175/JCLI-D-14-00293.1"
+        References:
+        - https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/v2.1/access/avhrr/
+        - "Huang, B., C. Liu, V. Banzon, E. Freeman, G. Graham, W. Hankins, T. Smith, and H.-M. Zhang, 2020: Improvements of the Daily Optimum Sea Surface Temperature (DOISST) - Version 2.1. (J. Climate, submitted). (for v2.1)"
+        driver: intake_esm.esm_datastore
+        args:
+            esmcol_obj: '{{CATALOG_DIR}}/oisst/catalogue.json'
 
