@@ -1,0 +1,26 @@
+# Metadata, as per intake_esm catalogue.json
+id: hadisst
+title: Met Office Hadley Centre's Sea Ice and Sea Surface Temperature data set (HadISST)
+description: |
+        Replica of the Met Office Hadley Centre's sea ice and sea surface temperature (SST) data set, HadISST1.
+            Consists of monthly globally-complete fields of SST and sea ice concentration on a 1 degree latitude-longitude grid from 1870 to date.
+        Project: ia39
+        Maintained By: ACS
+        Contact: cws_help@nci.org.au
+        Documentation: https://github.com/aus-ref-clim-data-nci/HadISST/blob/main/README.md
+        License: https://www.metoffice.gov.uk/hadobs/hadisst/terms_and_conditions.html
+        Citation: 
+            - Rayner NA, Parker DE, Horton EB, Folland CK, Alexander LV, Rowell DP, Kent EC, Kaplan A (2003). Global analyses of sea surface temperature, sea ice, and night marine air temperature since the late nineteenth century. Journal of Geophysical Research. 108, D14, 4407. https://doi.org/10.1029/2002JD002670
+        References:
+            - https://www.metoffice.gov.uk/hadobs/hadisst/
+catalog_file: catalogue.csv.xz 
+
+# Aggregation, as per intake_esm catalogue.json
+# Attributes will be automatically generated based on the DRS pattern, 
+# excluding the asset column name
+assets:
+    column_name: path
+    format: netcdf
+aggregation_control:
+    # Name of the variable in the file
+    variable_column_name: variable
