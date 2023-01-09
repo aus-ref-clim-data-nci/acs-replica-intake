@@ -10,6 +10,13 @@ To load the catalogue
 import intake
 cat = intake.open_catalog('/g/data/ia39/aus-ref-clim-data-nci/acs-replica-intake/catalogue.yaml') 
 ```
+NB. if you are using an intake-esm version >= 2022.9.18 as the class esm_datastore has changed we need to pass different arguments to it. Hence we defined a separate catalogue file:
+
+```python
+import intake
+cat = intake.open_catalog('/g/data/ia39/aus-ref-clim-data-nci/acs-replica-intake/catalogue_new.yaml')
+```
+
 If you are using the CLEX-CMS conda environments, you can use this shortcut
 ```python
 import intake
