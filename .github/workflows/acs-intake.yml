@@ -1,0 +1,22 @@
+name: Run update of ACS intake catalogue
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '20 14 * * 0'
+
+jobs:
+  runcode:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USER}}
+          key: ${{secrets.SSH_KEY}}
+          command_timeout: 60m
+          script: |
+              module use /g/data/hh5/public/modules
+              module load conda/analysis3
+              cd /g/data/ia39/aus-ref-clim-data-nci/acs-replica-intake/
+              ./generate.sh 
