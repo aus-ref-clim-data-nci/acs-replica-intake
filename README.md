@@ -1,5 +1,7 @@
 # NCI Data Collection Intake Catalogue
 
+![workflow](https://github.com/aus-ref-clim-data-nci/acs-replica-intake/actions/workflows/acs-intake.yml/badge.svg)
+
 ## Usage
 
 To access the catalogue and the data you need to be part of the [`ia39` project](https://my.nci.org.au/mancini/project/ia39).
