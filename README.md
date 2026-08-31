@@ -4,19 +4,19 @@
 
 ## Usage
 
-To access the catalogue and the data you need to be part of the [`ia39` project](https://my.nci.org.au/mancini/project/ia39).
+To access the catalogue and the data you need to be part of the [`jt48` project](https://my.nci.org.au/mancini/project/jt48).
 
 To load the catalogue
 
 ```python
 import intake
-cat = intake.open_catalog('/g/data/ia39/aus-ref-clim-data-nci/acs-replica-intake/catalogue.yaml') 
+cat = intake.open_catalog('/g/data/jt48/aus-ref-clim-data-nci/acs-replica-intake/catalogue.yaml') 
 ```
 NB. if you are using an intake-esm version >= 2022.9.18 as the class esm_datastore has changed we need to pass different arguments to it. Hence we defined a separate catalogue file:
 
 ```python
 import intake
-cat = intake.open_catalog('/g/data/ia39/aus-ref-clim-data-nci/acs-replica-intake/catalogue_new.yaml')
+cat = intake.open_catalog('/g/data/jt48/aus-ref-clim-data-nci/acs-replica-intake/catalogue_new.yaml')
 ```
 
 If you are using the CLEX-CMS conda environments, you can use this shortcut
@@ -36,7 +36,7 @@ Individual netcdf datasets are catalogued using intake-esm.
 
 ## Admin
 
-This catalogue exists on Gadi's NCI filesystem under /g/data/ia39/aus-ref-clim-data-nci/acs-replica-intake/catalogue.yaml
+This catalogue exists on Gadi's NCI filesystem under /g/data/jt48/aus-ref-clim-data-nci/acs-replica-intake/catalogue.yaml
 
 Use `git pull` to download changes from Github
 
@@ -68,7 +68,7 @@ The catalogue.yaml file lists the main metadata for each dataset:
 cmip6_etccdi:
         description: |
             Replica of the Climate extreme indices and heat stress indicators derived from CMIP6 ...
-        Project: ia39
+        Project: jt48
         Maintained By: CLEX
         Contact: cws_help@nci.org.au
         Documentation: https://github.com/aus-ref-clim-data-nci/CMIP6_ETCCDI
@@ -88,8 +88,8 @@ As an example a snippet of the catalogue for the cmip6_etccdi dataset:
 
 ```csv
 path,index_type,base,frequency,experiment,model,ensemble,variable,date_range
-/g/data/ia39/aus-ref-clim-data-nci/cmip6-etccdi/data/v1-0/etccdi/base_independent/yr/ssp370/ACCESS-CM2/txxETCCDI_yr_ACCESS-CM2_ssp370_r1i1p1f1_no-base_v20191108_2015-2100_v1-0.nc,etccdi,base_independent,yr,ssp370,ACCESS-CM2,r1i1p1f1,txx,2015-2100
-/g/data/ia39/aus-ref-clim-data-nci/cmip6-etccdi/data/v1-0/etccdi/base_independent/yr/ssp370/ACCESS-CM2/r10mmETCCDI_yr_ACCESS-CM2_ssp370_r1i1p1f1_no-base_v20191108_2015-2100_v1-0.nc,etccdi,base_independent,yr,ssp370,ACCESS-CM2,r1i1p1f1,r10mm,2015-2100
+/g/data/jt48/aus-ref-clim-data-nci/cmip6-etccdi/data/v1-0/etccdi/base_independent/yr/ssp370/ACCESS-CM2/txxETCCDI_yr_ACCESS-CM2_ssp370_r1i1p1f1_no-base_v20191108_2015-2100_v1-0.nc,etccdi,base_independent,yr,ssp370,ACCESS-CM2,r1i1p1f1,txx,2015-2100
+/g/data/jt48/aus-ref-clim-data-nci/cmip6-etccdi/data/v1-0/etccdi/base_independent/yr/ssp370/ACCESS-CM2/r10mmETCCDI_yr_ACCESS-CM2_ssp370_r1i1p1f1_no-base_v20191108_2015-2100_v1-0.nc,etccdi,base_independent,yr,ssp370,ACCESS-CM2,r1i1p1f1,r10mm,2015-2100
 ...
 ```
 
@@ -103,15 +103,15 @@ The ingest.yaml is composed of 4 main sections:
 ```yaml
 find:
     paths:
-        - /g/data/ia39/aus-ref-clim-data-nci/gpcp/data
+        - /g/data/jt48/aus-ref-clim-data-nci/gpcp/data
     options: -not -type d -not -path */fx/* -name *.nc
 ```
 
 * `drs` section where you can use Python regular expression to retrieve attributes from the directory structure and filenames
 ```yaml
-#   /g/data/ia39/aus-ref-clim-data-nci/gpcp/data/mon/v2-3/2021/gpcp_v02r03_monthly_d202106_c20210907.nc
+#   /g/data/jt48/aus-ref-clim-data-nci/gpcp/data/mon/v2-3/2021/gpcp_v02r03_monthly_d202106_c20210907.nc
 drs: |
-    ^(?P<path>/g/data/ia39/aus-ref-clim-data-nci/gpcp/data
+    ^(?P<path>/g/data/jt48/aus-ref-clim-data-nci/gpcp/data
     /(?P<frequency>[^/]+)
     /(?P<version>[^/]+)
     /(?P<year>[^/]+)
